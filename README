@@ -1,0 +1,207 @@
+# RaceDay API
+
+## 1. Project Description
+
+RaceDay API is an ASP.NET Core Web API developed using C# and Entity Framework Core. It connects to a Microsoft SQL Server database named `RaceDay` to manage race events, categories, participant enrolments and results.
+
+The API provides endpoints for working with race information and uses JWT authentication and role-based authorisation for protected operations. Swagger UI is used to test the API.
+
+## 2. Technologies Used
+
+- C#
+- ASP.NET Core Web API
+- Entity Framework Core
+- Microsoft SQL Server
+- JWT authentication
+- Swagger / OpenAPI
+- GitHub Actions for CI/CD
+- Unit testing, where configured
+
+## 3. User Roles
+
+### Participant
+
+A Participant can:
+- Register an account and log in.
+- View events and categories where permitted.
+- Enrol in an event category.
+- Access their own enrolment information where the API allows it.
+
+A Participant must not create, update or delete events or categories if those operations are restricted to Organisers. Participants must not enrol on behalf of other users or modify another participant's information.
+
+### Organiser
+
+An Organiser can:
+- Log in using an authorised Organiser account.
+- Create and manage events where permitted.
+- Create categories and link categories to events where permitted.
+- View event and category information.
+- Perform other event-management operations allowed by the API.
+
+JWT authentication identifies the logged-in user, while role-based authorisation controls access to protected endpoints.
+
+## 4. Project Files
+
+The project includes the following files:
+
+| File | Purpose |
+|---|---|
+| `RaceDayApi1.sln` | Visual Studio solution file |
+| `AppDbContext.cs` | Entity Framework Core database context |
+| `20261016084121_InitialCreate.cs` | Initial database migration |
+| `20261016084121_InitialCreate.Designer.cs` | Migration metadata |
+| `AppDbContextModelSnapshot.cs` | Snapshot of the EF Core model |
+| `AuthController.cs` | User registration and login |
+| `DatabaseTestController.cs` | Tests database connectivity |
+| `EventsController.cs` | Event API operations |
+| `Event.cs` | Event model |
+| `CategoriesController.cs` | Category API operations |
+| `Category.cs` | Category model |
+| `EventCategoriesController.cs` | Event-category relationship operations |
+| `EventCategories.cs` | Event-category model |
+| `EnrolmentsController.cs` | Enrolment API operations |
+| `Enrolments.cs` | Enrolment model |
+| `ResultsController.cs` | Race result API operations |
+| `Results.cs` | Result model |
+| `Users.cs` | User model |
+| `WeatherForecastController.cs` | Default weather forecast example controller |
+| `README.md` | Project documentation |
+| `CI-CDworkflow.jpeg` | CI/CD screenshot |
+
+The repository also contains WhatsApp video recordings dated 16 October 2026. The final demonstration video should be uploaded to YouTube, and its URL should be added to this README.
+
+## 5. Prerequisites
+
+Install the following software:
+
+- Visual Studio 2022 with the ASP.NET and web development workload.
+- The .NET SDK version required by the project.
+- Microsoft SQL Server.
+- SQL Server Management Studio (SSMS).
+
+
+## 6. Setup Instructions
+
+### Step 1: Clone the repository
+
+Open a terminal and run:
+
+```bash
+git clone https://github.com/gotti-G7/Prog2B-P2.git
+```
+
+Open the downloaded repository folder.
+
+### Step 2: Open the solution
+
+Open `RaceDayApi1.sln` in Visual Studio.
+
+### Step 3: Configure the database
+
+Ensure that the `RaceDay` database exists in SQL Server and contains the required tables.
+
+Configure the `DefaultConnection` connection string in `appsettings.json` to match your own SQL Server instance.
+
+Example:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=LabVM2049939\SQLEXPRESS;Database=RaceDay;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}
+```
+
+Keep private JWT signing keys and database passwords out of public repositories.
+
+### Step 4: Restore packages
+
+Open the terminal in the directory containing `RaceDayApi1.sln` and run:
+
+```bash
+dotnet restore
+```
+
+### Step 5: Build the project
+
+Run:
+
+```bash
+dotnet build
+```
+
+Check that the build completes successfully.
+
+### Step 6: Run the API
+
+Run the project from Visual Studio using the Run button, or use:
+
+```bash
+dotnet run
+```
+
+Open the HTTPS address shown by the application and add `/swagger`.
+
+Example:
+
+`https://localhost:7111/swagger`
+
+The port may differ depending on your configuration.
+
+## 7. Testing with Swagger
+
+Swagger UI provides an interface for testing the API endpoints.
+
+1. Register a test account using the authentication endpoint.
+2. Log in to obtain a JWT token.
+3. Click **Authorize** in Swagger and enter the token as required by the Swagger configuration.
+4. Test GET requests to retrieve events and categories.
+5. Test POST requests to create permitted records.
+6. Test event-category linking and enrolment operations using valid IDs.
+7. Check that restricted operations reject users with insufficient permissions.
+
+The HTTP response depends on the endpoint, supplied data and configured authorisation rules.
+
+## 8. Running Tests
+
+If the solution contains a unit-test project, run the tests from the solution directory:
+
+```bash
+dotnet test
+```
+
+Review the results to determine which tests pass or fail.
+
+## 9. CI/CD with GitHub Actions
+
+The workflow should restore dependencies, build the solution and run the available automated tests.
+
+### CI/CD Screenshot
+
+The screenshot below is intended to show the GitHub Actions workflow and its result.
+
+![RaceDay API CI/CD workflow](CI-CDworkflow.jpeg)
+
+
+## 10. YouTube Demonstration Video
+
+**RaceDay API demonstration:** used whatapp videos instead
+
+The video should demonstrate:
+
+- The project running in Visual Studio.
+- The SQL Server database connection.
+- Swagger endpoints and API requests.
+- Registration and login.
+- Participant and Organiser permissions.
+- Creating and retrieving event or category data.
+- Unit-test results, if tests are included.
+- 
+
+## 11. GitHub Repository
+
+Repository: https://github.com/gotti-G7/Prog2B-P2
+
+## 12. Conclusion
+
+RaceDay API provides a RESTful interface for managing race events and related information. It uses ASP.NET Core Web API, Entity Framework Core, SQL Server and JWT authentication, with Swagger for API testing and GitHub Actions for automated build and test checks.
