@@ -16,9 +16,7 @@ jobs:
   build-and-test:
     runs-on: windows-latest
 
-    defaults:
-      run:
-        working-directory: ./PROG6212-PART1-2-3
+  
 
     steps:
       - name: Checkout repository
